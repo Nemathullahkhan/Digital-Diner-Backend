@@ -7,6 +7,7 @@ dotenv.config();
 import menuRoutes from "./routes/menuRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 import { connectPostgresDB } from "./config/postgresSql.js";
 
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,7 @@ app.use(cors());
 app.use("/api/user", userRoutes);
 app.use("/menu", menuRoutes);
 app.use("/cart", cartRoutes);
+app.use("/order", orderRoutes);
 
 app.listen(PORT, () => {
   connectDB();
