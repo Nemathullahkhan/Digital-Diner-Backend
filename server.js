@@ -16,6 +16,26 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
+  : ["https://your-frontend.netlify.app", "http://localhost:5173"];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      console.log(`CORS Request Origin: ${origin}`); // Debug incoming origin
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.error(`CORS Error: Origin ${origin} not allowed`);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
 app.use(cookieParser());
 
 app.use("/api/user", userRoutes);
