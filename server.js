@@ -22,9 +22,23 @@ app.use("/api/user", userRoutes);
 app.use("/menu", menuRoutes);
 app.use("/cart", cartRoutes);
 app.use("/order", orderRoutes);
+async function startServer() {
+  try {
+    await connectDB();
+    await connectPostgresDB();
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error("Failed to connect to databases:", err);
+    process.exit(1);
+  }
+}
 
-app.listen(PORT, () => {
-  connectDB();
-  connectPostgresDB();
-  console.log("Server is running on port 3000");
-});
+startServer();
+
+// app.listen(PORT, () => {
+//   connectDB();
+//   connectPostgresDB();
+//   console.log("Server is running on port 3000");
+// });
