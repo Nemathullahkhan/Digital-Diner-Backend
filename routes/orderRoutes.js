@@ -7,10 +7,10 @@ const router = Router();
 router.post("/", createOrder);
 
 // API endpoint to get all orders
-router.get("/:userId", getOrdersByUser);
+router.post("/get", getOrdersByUser);
 
 // API endpoint to get all orders (admin only)
-router.get("/", getAllOrders);
+router.get("/getAll", getAllOrders);
 
 
 export default router;
