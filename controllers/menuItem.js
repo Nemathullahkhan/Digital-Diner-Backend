@@ -49,10 +49,31 @@ export const getMenuItemByName = async (req, res) => {
 
 // Filtered menu items by category and veg/non-veg
 export const FilteredMenuItems = async (req, res) => {
-    const {category} = req.params;
-    const result = await MenuItem.find({category: category}, {__v: 0});
-    if (!result) {
-        return res.status(404).json({ message: 'Menu item not found' });
+    try {
+      const { query } = req.query; // Get search query from URL query params
+  
+      if (!query) {
+        const allItems = await MenuItem.find({}, { __v: 0 });
+        return res.json(allItems);
+      }
+  
+      // Search by name (case-insensitive) or category
+      const result = await MenuItem.find(
+        {
+          $or: [
+            { name: { $regex: query, $options: 'i' } }, // Search in dish name
+            { category: { $regex: query, $options: 'i' } }, // Search in category
+          ],
+        },
+        { __v: 0 }
+      );
+  
+      if (!result || result.length === 0) {
+        return res.status(404).json({ message: 'No menu items found' });
+      }
+  
+      res.json(result);
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error: error.message });
     }
-    res.json(result);
-}
+  };

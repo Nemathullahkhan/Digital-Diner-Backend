@@ -13,5 +13,7 @@ router.get("/:id",getMenuItemById);
 router.post("/", createMenuItem);
 
 
-router.get("/search/:category", FilteredMenuItems);
+router.get("/search", FilteredMenuItems);
+
+
 export default router;
