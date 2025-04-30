@@ -17,9 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const allowedOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
-  : ["http://localhost:5173"];
+const allowedOrigins = process.env.CORS_ORIGIN;
 
 app.use(
   cors({
