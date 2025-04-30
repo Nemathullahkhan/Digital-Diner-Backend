@@ -19,7 +19,7 @@ app.use(cors());
 
 const allowedOrigins = process.env.CORS_ORIGIN
   ? process.env.CORS_ORIGIN.split(",").map((origin) => origin.trim())
-  : ["https://your-frontend.netlify.app", "http://localhost:5173"];
+  : ["http://localhost:5173"];
 
 app.use(
   cors({

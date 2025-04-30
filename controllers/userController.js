@@ -46,7 +46,7 @@ export const createUser = async (req, res) => {
       .json({ message: "User created successfully", user: user });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ message: "Error creating user" });
+    return res.status(500).json({ message: "Error creating user",err });
   }
 };
 export const loginByPhone = async (req, res) => {
